@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bone text-ink antialiased;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+  }
+
+  ::selection {
+    background: #1a5cff;
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f0efe9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1a5cff;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .label-mono {
+    @apply font-mono text-xs tracking-widest uppercase text-gray-mid;
+  }
+
+  .section-number {
+    @apply font-mono text-xs text-blue-accent tracking-widest;
+  }
+
+  .divider {
+    @apply border-t border-ink/10 w-full;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-ink text-bone font-display font-medium text-sm tracking-wider uppercase
+    hover:bg-blue-accent transition-colors duration-200;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-ink text-ink font-display font-medium text-sm tracking-wider uppercase
+    hover:bg-ink hover:text-bone transition-colors duration-200;
+  }
+
+  .tag {
+    @apply font-mono text-xs px-2 py-1 bg-ink/5 border border-ink/10 uppercase tracking-wider;
+  }
+}
