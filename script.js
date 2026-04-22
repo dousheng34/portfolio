@@ -526,7 +526,7 @@ if (themeToggle) {
   const darkIcon = themeToggle.querySelector('.dark-icon');
   const lightIcon = themeToggle.querySelector('.light-icon');
   
-  let currentTheme = localStorage.getItem('theme') || 'dark';
+  let currentTheme = localStorage.getItem('theme') || 'light';
   
   function applyTheme(theme) {
     if (theme === 'light') {
