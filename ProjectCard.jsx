@@ -1,103 +1,132 @@
-import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-const categoryColors = {
-  design: "from-neon-pink to-neon-purple",
-  "3d": "from-neon-purple to-neon-blue",
-  animation: "from-neon-blue to-neon-pink",
-  development: "from-neon-blue to-neon-purple",
-};
+const ProjectCard = ({ project, index }) => {
+  const ref = useRef(null);
 
-const categoryLabels = {
-  design: "Дизайн",
-  "3d": "3D",
-  animation: "Анимация",
-  development: "Разработка",
-};
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
 
-const ProjectCard = ({ project, onClick }) => {
-  const gradient = categoryColors[project.category] || "from-neon-blue to-neon-purple";
+  // Лёгкий параллакс — картинка двигается медленнее контейнера
+  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.92, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.92, y: 20 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      whileHover={{ y: -6 }}
-      className="glass-card cursor-pointer group overflow-hidden"
-      onClick={onClick}
+    <motion.article
+      ref={ref}
+      data-cursor="card"
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{
+        duration: 0.9,
+        delay: index * 0.12,
+        ease: [0.21, 0.47, 0.32, 0.98],
+      }}
+      className="group relative flex flex-col gap-5 cursor-none"
     >
-      {/* Image area */}
-      <div className="aspect-video relative overflow-hidden rounded-t-2xl">
-        {/* Gradient placeholder */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-20 group-hover:opacity-40 transition-opacity duration-500`}
-        />
+      {/* ── Изображение/Видео ── */}
+      <div className="relative overflow-hidden bg-gray-100 aspect-[4/3] md:aspect-[16/10]">
+        {/* Параллакс-обёртка: 120% высоты чтобы было пространство для сдвига */}
+        <motion.div
+          style={{ y }}
+          className="absolute inset-0 w-full h-[120%] -top-[10%]"
+        >
+          {project.video ? (
+            <video
+              src={project.video}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover
+                grayscale group-hover:grayscale-0
+                scale-105 group-hover:scale-100
+                transition-all duration-700 ease-out"
+            />
+          ) : (
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover
+                grayscale group-hover:grayscale-0
+                scale-105 group-hover:scale-100
+                transition-all duration-700 ease-out"
+            />
+          )}
+        </motion.div>
 
-        {/* Dark base */}
-        <div className="w-full h-full bg-dark-800 flex items-center justify-center relative">
-          {/* Decorative circles */}
-          <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${gradient} opacity-30 blur-xl absolute`} />
-          <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${gradient} opacity-20`} />
+        {/* Тёмный оверлей снизу (появляется при наведении) */}
+        <div className="
+          absolute inset-0
+          bg-gradient-to-t from-black/50 via-transparent to-transparent
+          opacity-0 group-hover:opacity-100
+          transition-opacity duration-500
+        " />
 
-          {/* Center icon text */}
-          <span className="absolute text-white/20 text-xs font-mono tracking-wider uppercase">
+        {/* Категория — верхний левый угол */}
+        <div className="absolute top-4 left-4 z-10">
+          <span className="
+            font-mono text-[10px] tracking-[0.15em] uppercase
+            px-2.5 py-1
+            bg-bone/90 text-ink backdrop-blur-sm
+            opacity-0 group-hover:opacity-100
+            -translate-y-1 group-hover:translate-y-0
+            transition-all duration-400
+          ">
             {project.category}
           </span>
         </div>
 
-        {/* Hover overlay */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-dark-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 z-10"
-        >
-          <div className="flex items-center gap-2 text-white/90 text-sm font-medium">
-            <ExternalLink size={14} />
-            <span>Открыть проект</span>
-          </div>
-        </motion.div>
-
-        {/* Category badge */}
-        <div className="absolute top-3 left-3 z-20">
-          <span
-            className={`px-3 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r ${gradient} shadow-lg`}
-          >
-            {categoryLabels[project.category]}
+        {/* Год — верхний правый угол */}
+        <div className="absolute top-4 right-4 z-10">
+          <span className="
+            font-mono text-[10px] text-white/60
+            opacity-0 group-hover:opacity-100
+            transition-opacity duration-500
+          ">
+            {project.year}
           </span>
         </div>
-
-        {/* Tag on hover */}
-        <motion.div
-          className="absolute bottom-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        >
-          <span className="glass px-2.5 py-1 text-xs text-white/80 rounded-full">
-            {project.tags[0]}
-          </span>
-        </motion.div>
       </div>
 
-      {/* Content */}
-      <div className="p-5">
-        <h3 className="text-lg font-display font-semibold mb-1.5 group-hover:text-neon-blue transition-colors duration-300">
+      {/* ── Подпись снизу ── */}
+      <div className="flex items-start justify-between gap-4 px-0.5">
+        {/* Название */}
+        <h3 className="
+          font-display font-bold uppercase tracking-tight leading-none
+          text-xl md:text-2xl text-ink
+          group-hover:text-blue-accent
+          transition-colors duration-300
+        ">
           {project.title}
         </h3>
-        <p className="text-white/45 text-sm leading-relaxed line-clamp-2">
-          {project.description}
-        </p>
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mt-3">
-          {project.tags.slice(0, 3).map((tag) => (
+
+        {/* Стек технологий */}
+        <div className="flex flex-wrap justify-end gap-1.5 shrink-0 pt-0.5">
+          {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-2 py-0.5 rounded-full bg-white/5 border border-white/8 text-white/40 text-xs"
+              className="
+                font-mono text-[9px] uppercase tracking-widest
+                text-ink/40 border border-ink/12
+                px-2 py-0.5
+              "
             >
               {tag}
             </span>
           ))}
         </div>
       </div>
-    </motion.div>
+
+      {/* Тонкая линия-индикатор снизу */}
+      <div className="
+        h-px bg-ink/8
+        origin-left scale-x-0 group-hover:scale-x-100
+        transition-transform duration-500 ease-out
+      " />
+    </motion.article>
   );
 };
 
