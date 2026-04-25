@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETHER — AI Creative Strategist</title>
+    <meta name="description" content="AI-креатор с 3-летним опытом. Экспертиза на стыке кода и визуального искусства. Генеративный арт, WebGL, 3D, UI/UX.">
+    
+    <!-- Meta tags for SEO/Social -->
+    <meta property="og:title" content="AETHER — AI Creative Strategist">
+    <meta property="og:description" content="Превращаю шум в смысл. AI-креатор на стыке кода и визуального искусства.">
+    <meta property="og:type" content="website">
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'blue-accent': '#1a5cff',
+            },
+            fontFamily: {
+              display: ['Space Grotesk', 'sans-serif'],
+              mono: ['Space Mono', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="particle-container"></div>
+
+    <header id="main-header">
+        <nav class="max-w-7xl mx-auto flex justify-between items-center px-6 md:px-12 py-8">
+            <div class="logo font-display font-bold text-xl tracking-tighter">AETHER<span class="text-blue-accent">.</span></div>
+            <div class="nav-links hidden md:flex gap-8 items-center">
+                <a href="#work" class="label-mono hover:text-blue-accent transition-colors" data-i18n="nav_work">WORK</a>
+                <a href="#about" class="label-mono hover:text-blue-accent transition-colors" data-i18n="nav_about">ABOUT</a>
+                <a href="#capabilities" class="label-mono hover:text-blue-accent transition-colors" data-i18n="nav_cap">CAPABILITIES</a>
+                <a href="#process" class="label-mono hover:text-blue-accent transition-colors" data-i18n="nav_process">PROCESS</a>
+                <a href="#contact" class="label-mono hover:text-blue-accent transition-colors" data-i18n="nav_contact">CONTACT</a>
+                <div class="flex gap-2 ml-4 border-l border-white/10 pl-4 theme-border">
+                    <button class="lang-btn text-xs font-mono opacity-50 hover:opacity-100 transition-opacity" data-lang="ru">RU</button>
+                    <button class="lang-btn text-xs font-mono opacity-50 hover:opacity-100 transition-opacity" data-lang="en">EN</button>
+                    <button class="lang-btn text-xs font-mono opacity-50 hover:opacity-100 transition-opacity" data-lang="kk">KK</button>
+                </div>
+                <button id="theme-toggle" class="ml-2 text-white/50 hover:text-white transition-colors theme-text" aria-label="Toggle theme">
+                    <i data-lucide="moon" class="w-4 h-4 dark-icon hidden"></i>
+                    <i data-lucide="sun" class="w-4 h-4 light-icon"></i>
+                </button>
+            </div>
+            <button class="menu-toggle md:hidden">
+                <i data-lucide="menu"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-screen flex flex-col justify-between pt-24 pb-12 px-6 md:px-12 overflow-hidden border-b border-white/5">
+            <div class="status-bar flex items-center justify-between opacity-0 translate-y-4 animate-reveal" style="animation-delay: 0.3s">
+                <div class="flex items-center gap-3">
+                    <span class="status-dot"></span>
+                    <span class="label-mono">NEURAL_CORE_ACTIVE</span>
+                </div>
+                <span class="label-mono hidden md:block text-white/30">EST. 2021 — DIGITAL DIMENSION</span>
+            </div>
+
+            <div class="hero-content flex-1 flex flex-col justify-center py-16 max-w-7xl mx-auto w-full">
+                <p class="label-mono text-blue-accent mb-8 opacity-0 translate-y-4 animate-reveal" style="animation-delay: 0.4s">AI CREATIVE STRATEGIST</p>
+                <h1 class="font-display font-bold text-6xl md:text-8xl lg:text-[10rem] leading-[0.92] tracking-tight text-white mb-10 uppercase opacity-0 translate-y-4 animate-reveal" style="animation-delay: 0.5s">
+                    <span class="glitch-text" data-text="ПРЕВРАЩАЮ" data-i18n="hero_title_1">ПРЕВРАЩАЮ</span><br>
+                    <span class="text-blue-accent" data-i18n="hero_title_2">ШУМ В</span><br>
+                    <span data-i18n="hero_title_3">СМЫСЛ</span>
+                </h1>
+
+                <div class="hero-footer flex flex-col md:flex-row gap-8 items-start md:items-end justify-between border-t border-white/10 pt-8 opacity-0 translate-y-4 animate-reveal" style="animation-delay: 0.8s">
+                    <p class="text-white/60 text-base md:text-lg max-w-md leading-relaxed font-light">
+                        <span data-i18n="hero_desc">AI-креатор с 3-летним опытом. Экспертиза на стыке кода и визуального искусства. Создаю реальность, в которой ошибки ИИ становятся артефактами стиля.</span>
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <a href="#work" class="btn-primary flex items-center gap-2 group">
+                            <span data-i18n="hero_btn">СМОТРЕТЬ РАБОТЫ</span>
+                            <i data-lucide="arrow-right" class="group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-bottom flex items-end justify-between opacity-0 animate-fade-in" style="animation-delay: 1.1s">
+                <div>
+                    <p class="label-mono">SYS.LOCATION</p>
+                    <p class="font-mono text-[10px] text-white/30 mt-1 uppercase">X: 0.52 / Y: 0.88</p>
+                </div>
+                <div class="scroll-indicator flex flex-col items-center gap-2 animate-bounce">
+                    <i data-lucide="arrow-down" class="text-white/30"></i>
+                </div>
+                <div class="text-right">
+                    <p class="label-mono">STATUS</p>
+                    <p class="font-mono text-[10px] text-blue-accent mt-1 uppercase">ACTIVE_CORE</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Scroll Section -->
+        <section id="video-sequence" style="height: 400vh; position: relative;">
+            <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+                <video class="seq-media absolute inset-0 w-full h-full object-cover transition-opacity duration-700" muted playsinline loop autoplay src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-connection-lines-20336-large.mp4"></video>
+                <video class="seq-media absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700" muted playsinline loop autoplay src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-data-center-22441-large.mp4"></video>
+                <video class="seq-media absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700" muted playsinline loop autoplay src="https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4"></video>
+                <div class="absolute inset-0 bg-black/40 z-10 pointer-events-none seq-overlay"></div>
+                <h2 class="seq-text absolute z-20 font-display text-5xl md:text-8xl text-white font-bold text-center uppercase tracking-widest transition-all duration-300 transform" data-i18n="seq_text_1">ИССЛЕДУЙ</h2>
+            </div>
+        </section>
+
+        <!-- Work Section -->
+        <section id="work" class="py-24 px-6 md:px-12 border-b border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                    <div class="reveal">
+                        <p class="section-number mb-4 text-white/30">01 / SELECTED WORK</p>
+                        <h2 class="font-display font-bold text-4xl md:text-5xl text-white uppercase tracking-tight leading-tight">
+                            ПРОЕКТЫ, КОТОРЫЕ <br>
+                            МЕНЯЮТ <span class="text-blue-accent">ВОСПРИЯТИЕ</span>
+                        </h2>
+                    </div>
+                    <div class="reveal" style="transition-delay: 0.2s">
+                        <p class="text-white/40 font-mono text-xs uppercase max-w-xs leading-relaxed">
+                            Исследование границ между человеческим воображением и алгоритмической точностью.
+                        </p>
+                    </div>
+                </div>
+                <!-- Projects will be injected here by script.js -->
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 px-6 md:px-12 border-b border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+                    <div>
+                        <p class="section-number mb-4 text-white/30">02 / PHILOSOPHY</p>
+                        <h2 class="font-display font-bold text-4xl md:text-5xl text-white uppercase tracking-tight leading-tight mb-8">
+                            ГДЕ МАШИННОЕ<br>
+                            ЗРЕНИЕ ВСТРЕЧАЕТ <span class="text-blue-accent">ВКУС</span>
+                        </h2>
+                        <p class="text-white/60 text-base leading-relaxed mb-6">
+                            Я не просто использую ИИ-инструменты — я исследую их пределы. Каждый сбой, артефакт, галлюцинация модели становится материалом для творчества. Мой подход: контролируемый хаос + жёсткая редактура.
+                        </p>
+                        <p class="text-white/60 text-base leading-relaxed">
+                            Работаю на стыке generative art, UI/UX и 3D. Результат — визуальные системы, которые одновременно функциональны и провокационны.
+                        </p>
+                        
+                        <div class="achievements flex gap-10 mt-12 pt-10 border-t border-white/10">
+                            <div>
+                                <div class="font-display font-bold text-3xl text-white mb-1">3+</div>
+                                <div class="label-mono text-[10px] text-white/40">YEARS AI EXPLORATION</div>
+                            </div>
+                            <div>
+                                <div class="font-display font-bold text-3xl text-white mb-1">50+</div>
+                                <div class="label-mono text-[10px] text-white/40">PROJECTS SHIPPED</div>
+                            </div>
+                            <div>
+                                <div class="font-display font-bold text-3xl text-white mb-1">∞</div>
+                                <div class="label-mono text-[10px] text-white/40">NEURAL ITERATIONS</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-10">
+                        <div class="stack-container">
+                            <p class="label-mono mb-5 text-white/30">TECH STACK</p>
+                            <div class="stack-list">
+                                <div class="stack-item flex items-center gap-3 py-3.5 border-b border-white/5 group">
+                                    <span class="text-blue-accent">→</span>
+                                    <span class="font-mono text-sm text-white/70 group-hover:text-white transition-colors uppercase">STABLE DIFFUSION / COMFYUI</span>
+                                </div>
+                                <div class="stack-item flex items-center gap-3 py-3.5 border-b border-white/5 group">
+                                    <span class="text-blue-accent">→</span>
+                                    <span class="font-mono text-sm text-white/70 group-hover:text-white transition-colors uppercase">MIDJOURNEY / RUNWAY GEN-3</span>
+                                </div>
+                                <div class="stack-item flex items-center gap-3 py-3.5 border-b border-white/5 group">
+                                    <span class="text-blue-accent">→</span>
+                                    <span class="font-mono text-sm text-white/70 group-hover:text-white transition-colors uppercase">THREE.JS / WEBGL / GLSL</span>
+                                </div>
+                                <div class="stack-item flex items-center gap-3 py-3.5 border-b border-white/5 group">
+                                    <span class="text-blue-accent">→</span>
+                                    <span class="font-mono text-sm text-white/70 group-hover:text-white transition-colors uppercase">PYTHON / AUTOMATION</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="terminal-badge bg-white/5 border border-white/10 p-6 rounded-sm font-mono text-xs leading-6">
+                            <p class="text-blue-accent mb-1">$ neural_interface --version</p>
+                            <p class="text-white/50">NEURAL_INTERFACE_V4.2</p>
+                            <p class="text-white/50">STATUS: <span class="text-green-400">OPERATIONAL</span></p>
+                            <p class="text-white/50 mt-1">CREATIVITY_CORES: <span class="text-blue-accent">∞</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities Section -->
+        <section id="capabilities" class="py-24 px-6 md:px-12 border-b border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <p class="section-number mb-4 text-white/30">03 / CAPABILITIES</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="capability-card p-8 border border-white/10 hover:border-blue-accent/50 transition-colors group reveal">
+                        <div class="mb-6 text-blue-accent">
+                            <i data-lucide="sparkles" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white uppercase mb-4 tracking-tight">AI CREATIVE DIRECTION</h3>
+                        <p class="text-white/50 text-sm leading-relaxed font-light">
+                            Разработка визуальных концепций с использованием генеративных нейросетей. Создание уникального стиля для брендов и продуктов.
+                        </p>
+                    </div>
+                    <div class="capability-card p-8 border border-white/10 hover:border-blue-accent/50 transition-colors group reveal" style="transition-delay: 0.1s">
+                        <div class="mb-6 text-blue-accent">
+                            <i data-lucide="code-2" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white uppercase mb-4 tracking-tight">INTERACTIVE WEBGL</h3>
+                        <p class="text-white/50 text-sm leading-relaxed font-light">
+                            Разработка высокопроизводительных 3D-интерфейсов и иммерсивных веб-опытов на Three.js и GLSL.
+                        </p>
+                    </div>
+                    <div class="capability-card p-8 border border-white/10 hover:border-blue-accent/50 transition-colors group reveal" style="transition-delay: 0.2s">
+                        <div class="mb-6 text-blue-accent">
+                            <i data-lucide="layers" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white uppercase mb-4 tracking-tight">NEURAL WORKFLOWS</h3>
+                        <p class="text-white/50 text-sm leading-relaxed font-light">
+                            Автоматизация творческих процессов. Создание кастомных пайплайнов в ComfyUI и интеграция ИИ в продакшн.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section id="process" class="py-24 px-6 md:px-12 border-b border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                    <div class="reveal">
+                        <p class="section-number mb-4 text-white/30">04 / PROCESS</p>
+                        <h2 class="font-display font-bold text-4xl md:text-5xl text-white uppercase tracking-tight leading-tight">
+                            КАК Я <span class="text-blue-accent">РАБОТАЮ</span>
+                        </h2>
+                    </div>
+                    <div class="reveal" style="transition-delay: 0.2s">
+                        <p class="text-white/40 font-mono text-xs uppercase max-w-xs leading-relaxed">
+                            Чёткий процесс — залог предсказуемого результата и минимум правок.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
+                    <div class="process-step reveal" style="transition-delay: 0s">
+                        <div class="process-num">01</div>
+                        <h3 class="process-title">BRIEF & RESEARCH</h3>
+                        <p class="process-desc">Глубокий анализ задачи, аудитории и конкурентов. Формирую чёткое техническое задание и референсы.</p>
+                    </div>
+                    <div class="process-step reveal" style="transition-delay: 0.1s">
+                        <div class="process-num">02</div>
+                        <h3 class="process-title">CONCEPT & PROTOTYPE</h3>
+                        <p class="process-desc">Генерирую 3–5 концептов через ИИ-инструменты и быстро прототипирую лучший вариант для согласования.</p>
+                    </div>
+                    <div class="process-step reveal" style="transition-delay: 0.2s">
+                        <div class="process-num">03</div>
+                        <h3 class="process-title">PRODUCTION</h3>
+                        <p class="process-desc">Итеративная разработка с жёстким контролем качества. Каждый артефакт ИИ проходит ручную редактуру.</p>
+                    </div>
+                    <div class="process-step reveal" style="transition-delay: 0.3s">
+                        <div class="process-num">04</div>
+                        <h3 class="process-title">DELIVERY & SUPPORT</h3>
+                        <p class="process-desc">Чистые исходники, документация и поддержка после сдачи. Готов к итерациям и дальнейшему развитию.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 px-6 md:px-12 border-b border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+                    <div>
+                        <p class="section-number mb-4 text-white/30">05 / CONTACT</p>
+                        <h2 class="font-display font-bold text-4xl md:text-5xl text-white uppercase tracking-tight leading-tight mb-8">
+                            ОТКРЫТ К <span class="text-blue-accent">КОЛЛАБОРАЦИЯМ</span>
+                        </h2>
+                        
+                        <div class="contact-info space-y-4 mb-10">
+                            <a href="mailto:hello@aether.ai" class="flex items-center gap-3 group">
+                                <i data-lucide="mail" class="text-blue-accent w-4 h-4"></i>
+                                <span class="font-mono text-sm text-white/60 group-hover:text-white transition-colors">hello@aether.ai</span>
+                            </a>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="map-pin" class="text-blue-accent w-4 h-4"></i>
+                                <span class="font-mono text-xs text-white/40 uppercase tracking-wider">BASED IN DIGITAL DIMENSION</span>
+                            </div>
+                        </div>
+
+                        <div class="status-badge flex items-center gap-3 mb-10">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                            <span class="label-mono text-green-500 text-[10px]">AVAILABLE FOR FREELANCE & FULL-TIME</span>
+                        </div>
+
+                        <div class="social-links flex gap-6">
+                            <a href="#" class="flex items-center gap-2 font-mono text-xs text-white/40 hover:text-blue-accent transition-colors uppercase tracking-wider">
+                                <i data-lucide="github" class="w-4 h-4"></i> GITHUB
+                            </a>
+                            <a href="#" class="flex items-center gap-2 font-mono text-xs text-white/40 hover:text-blue-accent transition-colors uppercase tracking-wider">
+                                <i data-lucide="twitter" class="w-4 h-4"></i> TWITTER
+                            </a>
+                        </div>
+                    </div>
+
+                    <form id="contact-form" class="space-y-6">
+                        <div class="form-group">
+                            <label class="label-mono block mb-2 text-white/30">ИМЯ</label>
+                            <input type="text" placeholder="Иван Иванов" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="label-mono block mb-2 text-white/30">EMAIL</label>
+                            <input type="email" placeholder="ivan@company.io" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="label-mono block mb-2 text-white/30">СООБЩЕНИЕ</label>
+                            <textarea placeholder="Расскажите о проекте..." rows="5" class="form-input resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full py-5 text-sm tracking-widest uppercase font-bold">
+                            ОТПРАВИТЬ <i data-lucide="arrow-right" class="inline-block ml-2 w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+            <button id="back-to-top" class="btn-primary fixed bottom-8 right-8 hidden opacity-0 transition-opacity" aria-label="Back to top">↑</button>
+</main>
+
+    <footer class="py-12 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center">
+            <span class="font-display font-bold text-2xl tracking-tighter text-white">AETHER<span class="text-blue-accent">.</span></span>
+            <p class="label-mono text-[10px] text-white/30">© 2024 AETHER PORTFOLIO. ALL RIGHTS RESERVED.</p>
+            <div class="flex items-center gap-2">
+                <span class="status-dot"></span>
+                <span class="label-mono text-[10px] text-blue-accent">NEURAL_CORE_ACTIVE</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
