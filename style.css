@@ -738,19 +738,62 @@ select.form-input option {
   color: #1a1a1a;
 }
 
-/* ─── TERMINAL STYLING ────────────────────────────────────────────── */
-#terminal-history::-webkit-scrollbar {
-  width: 2px;
+/* ─── PROFESSIONAL SKILL CARDS ────────────────────────────────────────── */
+.skill-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
 }
-#terminal-history::-webkit-scrollbar-thumb {
-  background: rgba(26, 92, 255, 0.3);
+.skill-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 92, 255, 0.04);
 }
-#terminal-input {
-  color: #fff;
+[data-theme="light"] .skill-card {
+  background-color: rgba(0, 0, 0, 0.01);
+  border-color: rgba(0, 0, 0, 0.05);
+}
+[data-theme="light"] .skill-card:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+  border-color: rgba(26, 92, 255, 0.2);
+}
+
+/* ─── CV BUTTONS ──────────────────────────────────────────────────────── */
+.cv-btn, #hero-cv-btn {
   font-family: 'Space Mono', monospace;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
 }
-[data-theme="light"] #terminal-input {
-  color: #1a1a1a;
+.cv-btn:hover {
+  box-shadow: 0 0 10px rgba(26, 92, 255, 0.25);
+  background: rgba(26, 92, 255, 0.08);
+}
+#hero-cv-btn {
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+}
+#hero-cv-btn:hover {
+  border-color: #1a5cff;
+  color: #1a5cff;
+  background: rgba(26, 92, 255, 0.08);
+  box-shadow: 0 0 15px rgba(26, 92, 255, 0.2);
+}
+[data-theme="light"] #hero-cv-btn {
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.7);
+}
+[data-theme="light"] #hero-cv-btn:hover {
+  border-color: #1a5cff;
+  color: #1a5cff;
+}
+
+/* ─── MODAL PREVIEW IMAGE ──────────────────────────────────────────────── */
+.modal-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-preview:hover img {
+  transform: scale(1.04);
 }
 
 
