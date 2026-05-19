@@ -202,17 +202,65 @@ const projects = [
   },
 ];
 
-(function initPortfolio() {
+let currentFilter = 'ALL';
+let currentLang = 'en';
+
+function getCombinedProjects() {
+  const localData = localStorage.getItem('aether_projects');
+  if (localData) {
+    try {
+      const parsed = JSON.parse(localData);
+      if (Array.isArray(parsed)) {
+        const combined = [...projects];
+        parsed.forEach(p => {
+          if (!combined.some(cp => cp.id === p.id || cp.title.toUpperCase() === p.title.toUpperCase())) {
+            combined.push(p);
+          }
+        });
+        return combined;
+      }
+    } catch(e) {
+      console.error("Error parsing local projects", e);
+    }
+  }
+  return [...projects];
+}
+
+function renderProjects() {
   const section = document.getElementById('work');
   if (!section) return;
 
-  // Render project rows
-  const listEl = document.createElement('div');
-  listEl.className = 'border-t border-white/5 reveal';
-  projects.forEach((p, i) => {
+  const container = section.querySelector('.max-w-7xl');
+  if (!container) return;
+
+  let listEl = section.querySelector('.projects-list');
+  if (!listEl) {
+    listEl = document.createElement('div');
+    listEl.className = 'projects-list border-t border-white/5 reveal';
+    container.appendChild(listEl);
+  } else {
+    listEl.innerHTML = '';
+  }
+
+  const activeProjects = getCombinedProjects();
+  
+  const filtered = activeProjects.filter(p => {
+    if (currentFilter === 'ALL') return true;
+    return p.category.toUpperCase() === currentFilter.toUpperCase();
+  });
+
+  if (filtered.length === 0) {
+    const emptyRow = document.createElement('div');
+    emptyRow.style.cssText = 'padding: 4rem 0; text-align: center; color: rgba(255,255,255,0.25); font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: 0.05em;';
+    emptyRow.textContent = currentLang === 'ru' ? 'НЕТ ПРОЕКТОВ В ДАННОЙ КАТЕГОРИИ' : (currentLang === 'kk' ? 'БҰЛ САНАТТА ЖҰМЫСТАР ЖОҚ' : 'NO PROJECTS IN THIS CATEGORY');
+    listEl.appendChild(emptyRow);
+    return;
+  }
+
+  filtered.forEach((p, i) => {
     const row = document.createElement('div');
     row.className = 'project-row reveal';
-    row.style.transitionDelay = `${i * 0.07}s`;
+    row.style.transitionDelay = `${i * 0.05}s`;
     row.innerHTML = `
       <span class="project-year">${p.year}</span>
       <span class="project-index">${String(i+1).padStart(2,'0')}</span>
@@ -460,7 +508,24 @@ const translations = {
     hero_btn: 'СМОТРЕТЬ РАБОТЫ',
     seq_text_1: 'ИССЛЕДУЙ',
     seq_text_2: 'ПОГРУЖАЙСЯ',
-    seq_text_3: 'ТВОРИ'
+    seq_text_3: 'ТВОРИ',
+    filter_all: 'ВСЕ',
+    filter_ai: 'AI GENERATIVE',
+    filter_3d: 'WEBGL / 3D',
+    filter_design: 'UI/UX DESIGN',
+    filter_audio: 'AUDIO AI',
+    creator_title: 'КОНСОЛЬ СОЗДАТЕЛЯ',
+    creator_subtitle: 'ЗАГРУЗИТЬ НОВУЮ РАБОТУ',
+    creator_name: 'НАЗВАНИЕ ПРОЕКТА',
+    creator_year: 'ГОД',
+    creator_category: 'КАТЕГОРИЯ',
+    creator_accent: 'АКЦЕНТНЫЙ ЦВЕТ (HEX)',
+    creator_tags: 'ТЕГИ (ЧЕРЕЗ ЗАПЯТУЮ)',
+    creator_desc: 'ОПИСАНИЕ ПРОЕКТА',
+    creator_btn_add: 'ДОБАВИТЬ В ПОРТФОЛИО',
+    creator_btn_export: 'ЭКСПОРТИРОВАТЬ JSON',
+    creator_export_desc: 'СКОПИРУЙТЕ ЭТОТ КОД И ВСТАВЬТЕ В SCRIPT.JS ДЛЯ СОХРАНЕНИЯ НА GITHUB:',
+    terminal_welcome: 'ВВЕДИТЕ <span class="text-blue-accent">help</span> ДЛЯ СПИСКА КОМАНД.'
   },
   en: {
     nav_work: 'WORK',
@@ -475,7 +540,24 @@ const translations = {
     hero_btn: 'VIEW WORK',
     seq_text_1: 'EXPLORE',
     seq_text_2: 'IMMERSE',
-    seq_text_3: 'CREATE'
+    seq_text_3: 'CREATE',
+    filter_all: 'ALL',
+    filter_ai: 'AI GENERATIVE',
+    filter_3d: 'WEBGL / 3D',
+    filter_design: 'UI/UX DESIGN',
+    filter_audio: 'AUDIO AI',
+    creator_title: 'CREATOR CONSOLE',
+    creator_subtitle: 'UPLOAD NEW WORK',
+    creator_name: 'PROJECT TITLE',
+    creator_year: 'YEAR',
+    creator_category: 'CATEGORY',
+    creator_accent: 'ACCENT COLOR (HEX)',
+    creator_tags: 'TAGS (COMMA SEPARATED)',
+    creator_desc: 'PROJECT DESCRIPTION',
+    creator_btn_add: 'ADD TO PORTFOLIO',
+    creator_btn_export: 'EXPORT TO JSON',
+    creator_export_desc: 'COPY THIS CODE AND PASTE IT INTO SCRIPT.JS TO SAVE PERMANENTLY TO GITHUB:',
+    terminal_welcome: 'ENTER <span class="text-blue-accent">help</span> FOR THE LIST OF COMMANDS.'
   },
   kk: {
     nav_work: 'ЖҰМЫС',
@@ -490,7 +572,24 @@ const translations = {
     hero_btn: 'ЖҰМЫСТАРДЫ КӨРУ',
     seq_text_1: 'ЗЕРТТЕ',
     seq_text_2: 'БАТ',
-    seq_text_3: 'ЖАСА'
+    seq_text_3: 'ЖАСА',
+    filter_all: 'БАРЛЫҒЫ',
+    filter_ai: 'AI GENERATIVE',
+    filter_3d: 'WEBGL / 3D',
+    filter_design: 'UI/UX DESIGN',
+    filter_audio: 'AUDIO AI',
+    creator_title: 'ЖАСАУШЫ ПАНЕЛІ',
+    creator_subtitle: 'ЖАҢА ЖҰМЫСТЫ ЖҮКТЕУ',
+    creator_name: 'ЖОБА АТАУЫ',
+    creator_year: 'ЖЫЛ',
+    creator_category: 'САНАТ',
+    creator_accent: 'АКЦЕНТТІК ТҮС (HEX)',
+    creator_tags: 'ТЕГТЕР (ҮТІР АРҚЫЛЫ)',
+    creator_desc: 'ЖОБА СИПАТТАМАСЫ',
+    creator_btn_add: 'ПОРТФОЛИОҒА ҚОСУ',
+    creator_btn_export: 'JSON ЭКСПОРТТАУ',
+    creator_export_desc: 'БҰЛ КОДТЫ КӨШІРІП, GITHUB-ҚА ТҰРАҚТЫ САҚТАУ ҮШІН SCRIPT.JS-КЕ ҚОЙЫҢЫЗ:',
+    terminal_welcome: 'КОМАНДАЛАР ТІЗІМІ ҮШІН <span class="text-blue-accent">help</span> ЕНГІЗІҢІЗ.'
   }
 };
 
@@ -504,13 +603,20 @@ function setLanguage(lang) {
       if (el.classList.contains('glitch-text')) {
         el.setAttribute('data-text', translations[lang][key]);
       }
-      el.textContent = translations[lang][key];
+      el.innerHTML = translations[lang][key];
     }
   });
+
+  const termInput = document.getElementById('terminal-input');
+  if (termInput) {
+    termInput.placeholder = lang === 'ru' ? 'Введите команду...' : (lang === 'kk' ? 'Команда енгізіңіз...' : 'Enter command...');
+  }
   
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.style.opacity = btn.getAttribute('data-lang') === lang ? '1' : '0.5';
   });
+
+  renderProjects();
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -580,4 +686,189 @@ if (seqSection) {
      seqText.style.opacity = 1 - Math.pow(sectionProgress * 2 - 1, 4); // Fade out at edges
   }, { passive: true });
 }
+
+// ─── Creator Console Logic ─────────────────
+(function initCreatorConsole() {
+  const modal = document.getElementById('creator-modal');
+  const openBtns = [
+    document.getElementById('creator-console-trigger')
+  ];
+  const closeBtn = document.getElementById('creator-close');
+  const form = document.getElementById('creator-form');
+  const exportBtn = document.getElementById('creator-export');
+  const exportContainer = document.getElementById('export-container');
+  const exportJson = document.getElementById('export-json');
+
+  function openCreator() {
+    if (!modal) return;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    exportContainer.classList.add('hidden');
+  }
+
+  function closeCreator() {
+    if (!modal) return;
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Key combination Ctrl+Shift+C
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'C') {
+      e.preventDefault();
+      openCreator();
+    }
+    if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+      closeCreator();
+    }
+  });
+
+  if (openBtns[0]) openBtns[0].addEventListener('click', openCreator);
+  if (closeBtn) closeBtn.addEventListener('click', closeCreator);
+  if (modal) {
+    modal.querySelector('.modal-backdrop').addEventListener('click', closeCreator);
+  }
+
+  // Handle Form Submit
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      
+      const title = document.getElementById('proj-title').value.trim();
+      const year = document.getElementById('proj-year').value.trim();
+      const category = document.getElementById('proj-category').value;
+      const accent = document.getElementById('proj-accent').value.trim();
+      const tagsString = document.getElementById('proj-tags').value.trim();
+      const desc = document.getElementById('proj-desc').value.trim();
+
+      const tags = tagsString.split(',').map(t => t.trim().toUpperCase()).filter(Boolean);
+
+      const newProject = {
+        id: Date.now(),
+        year,
+        title: title.toUpperCase(),
+        category,
+        description: desc,
+        tags,
+        accent
+      };
+
+      const localData = localStorage.getItem('aether_projects');
+      let currentLocal = [];
+      if (localData) {
+        try {
+          currentLocal = JSON.parse(localData);
+          if (!Array.isArray(currentLocal)) currentLocal = [];
+        } catch(err) {
+          currentLocal = [];
+        }
+      }
+      currentLocal.push(newProject);
+      localStorage.setItem('aether_projects', JSON.stringify(currentLocal));
+
+      renderProjects();
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = currentLang === 'ru' ? '✓ УСПЕШНО ДОБАВЛЕНО' : (currentLang === 'kk' ? '✓ СӘТТІ ҚОСЫЛДЫ' : '✓ SUCCESSFULLY ADDED');
+      submitBtn.style.background = 'rgba(34,197,94,0.15)';
+      submitBtn.style.color = '#22c55e';
+
+      setTimeout(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.style.background = '';
+        submitBtn.style.color = '';
+        form.reset();
+        closeCreator();
+      }, 1500);
+    });
+  }
+
+  // Handle Export
+  if (exportBtn && exportJson && exportContainer) {
+    exportBtn.addEventListener('click', () => {
+      const activeProjects = getCombinedProjects();
+      exportJson.value = "const projects = " + JSON.stringify(activeProjects, null, 2) + ";";
+      exportContainer.classList.remove('hidden');
+      exportJson.select();
+    });
+  }
+})();
+
+// ─── Interactive Terminal Logic ───────────
+(function initInteractiveTerminal() {
+  const input = document.getElementById('terminal-input');
+  const history = document.getElementById('terminal-history');
+  if (!input || !history) return;
+
+  function printLine(text, className = '') {
+    const p = document.createElement('p');
+    if (className) p.className = className;
+    p.innerHTML = text;
+    history.appendChild(p);
+    history.scrollTop = history.scrollHeight;
+  }
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const cmd = input.value.trim();
+      input.value = '';
+      if (!cmd) return;
+
+      printLine(`<span class="text-blue-accent">$</span> ${cmd}`);
+
+      const parts = cmd.toLowerCase().split(' ');
+      const action = parts[0];
+
+      switch(action) {
+        case 'help':
+          printLine('Доступные команды / Available commands:', 'text-white/50');
+          printLine('  <span class="text-blue-accent">help</span>     - Показать этот список / Show this list');
+          printLine('  <span class="text-blue-accent">skills</span>   - Список технологий / Display skills & stack');
+          printLine('  <span class="text-blue-accent">projects</span> - Мои проекты / List current projects');
+          printLine('  <span class="text-blue-accent">contact</span>  - Контактные данные / Display contact info');
+          printLine('  <span class="text-blue-accent">theme</span>    - Переключить тему / Toggle color theme');
+          printLine('  <span class="text-blue-accent">clear</span>    - Очистить терминал / Clear history');
+          break;
+        case 'clear':
+          history.innerHTML = '';
+          break;
+        case 'skills':
+        case 'stack':
+          printLine('Используемый стек / Tech Stack:', 'text-white/50');
+          printLine('  ● COMFYUI / STABLE DIFFUSION');
+          printLine('  ● MIDJOURNEY / RUNWAY GEN-3');
+          printLine('  ● THREE.JS / WEBGL / GLSL');
+          printLine('  ● PYTHON / AUTOMATION');
+          break;
+        case 'projects':
+        case 'work':
+          const projs = getCombinedProjects();
+          printLine('Список проектов / Projects List:', 'text-white/50');
+          projs.forEach((p, idx) => {
+            printLine(`  [${idx+1}] <span style="color:${p.accent || '#1a5cff'}">${p.title}</span> — ${p.category} (${p.year})`);
+          });
+          break;
+        case 'contact':
+        case 'mail':
+          printLine('Контакты / Contact details:', 'text-white/50');
+          printLine('  Email: <a href="mailto:hello@aether.ai" class="text-blue-accent hover:underline">hello@aether.ai</a>');
+          printLine('  Location: DIGITAL DIMENSION');
+          break;
+        case 'theme':
+          const toggleBtn = document.getElementById('theme-toggle');
+          if (toggleBtn) {
+            toggleBtn.click();
+            printLine('Тема успешно переключена / Theme toggled.', 'text-green-400');
+          } else {
+            printLine('Ошибка переключения темы / Theme toggle element not found.', 'text-red-400');
+          }
+          break;
+        default:
+          printLine(`Команда не найдена / Command not found: ${action}. Введите <span class="text-blue-accent">help</span>.`, 'text-red-400/80');
+      }
+    }
+  });
+})();
+
 
