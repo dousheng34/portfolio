@@ -429,66 +429,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 })();
 
-// ─── Custom cursor dot ────────────────────
-(function initCursor() {
-  // Only on non-touch desktops
-  if (window.matchMedia('(hover: none)').matches) return;
 
-  const dot = document.createElement('div');
-  dot.id = 'cursor-dot';
-  dot.style.cssText = `
-    position: fixed;
-    width: 6px;
-    height: 6px;
-    background: #1a5cff;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease, opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
-    mix-blend-mode: difference;
-  `;
-  document.body.appendChild(dot);
-
-  const ring = document.createElement('div');
-  ring.id = 'cursor-ring';
-  ring.style.cssText = `
-    position: fixed;
-    width: 32px;
-    height: 32px;
-    border: 1px solid rgba(26,92,255,0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99998;
-    transform: translate(-50%, -50%);
-    transition: left 0.12s ease, top 0.12s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
-  `;
-  document.body.appendChild(ring);
-
-  let mx = 0, my = 0;
-
-  window.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-    ring.style.left = mx + 'px';
-    ring.style.top  = my + 'px';
-  }, { passive: true });
-
-  // Expand ring over clickable elements
-  document.querySelectorAll('a, button, .project-row, .capability-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      ring.style.width  = '56px';
-      ring.style.height = '56px';
-      ring.style.borderColor = 'rgba(26,92,255,0.9)';
-    });
-    el.addEventListener('mouseleave', () => {
-      ring.style.width  = '32px';
-      ring.style.height = '32px';
-      ring.style.borderColor = 'rgba(26,92,255,0.5)';
-    });
-  });
-})();
 
 // ─── i18n & THEME & VIDEO SEQUENCE ───────────────────────
 
