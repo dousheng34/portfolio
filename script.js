@@ -622,4 +622,78 @@ if (themeToggle) {
   });
 })();
 
+// ─── 3D Tilt Effect on Project Rows ───────
+(function initTiltEffect() {
+  // Only on non-touch hover devices
+  if (window.matchMedia('(hover: none)').matches) return;
+
+  document.addEventListener('mousemove', e => {
+    const row = e.target.closest('.project-row');
+    const allRows = document.querySelectorAll('.project-row');
+    
+    allRows.forEach(r => {
+      if (r !== row) {
+        r.style.transform = '';
+        r.style.boxShadow = '';
+      }
+    });
+    
+    if (row) {
+      const rect = row.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const midX = rect.width / 2;
+      const midY = rect.height / 2;
+      
+      const tiltX = -(y - midY) / (rect.height) * 12;
+      const tiltY = (x - midX) / (rect.width) * 12;
+      
+      row.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.025)`;
+      row.style.boxShadow = `0 10px 30px rgba(26, 92, 255, 0.12)`;
+    }
+  });
+})();
+
+// ─── Cyber Decrypt Headers Effect ─────────
+(function initDecryptHeaders() {
+  function decryptText(el) {
+    if (el.classList.contains('decrypting')) return;
+    el.classList.add('decrypting');
+
+    const originalText = el.getAttribute('data-original') || el.innerText;
+    if (!el.getAttribute('data-original')) {
+      el.setAttribute('data-original', originalText);
+    }
+    
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*()_+';
+    let iterations = 0;
+    
+    const interval = setInterval(() => {
+      el.innerText = originalText.split('').map((char, index) => {
+        if (char === ' ' || char === '\n' || char === '<' || char === '>') return char;
+        if (index < iterations) return originalText[index];
+        return chars[String(char).charCodeAt(0) % chars.length];
+      }).join('');
+      
+      if (iterations >= originalText.length) {
+        clearInterval(interval);
+        el.classList.remove('decrypting');
+      }
+      iterations += 1/3;
+    }, 25);
+  }
+
+  // Setup Observer for h2 headings
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        decryptText(e.target);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('h2').forEach(h => observer.observe(h));
+})();
+
 
