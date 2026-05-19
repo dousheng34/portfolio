@@ -39,6 +39,20 @@ body::before {
 ::-webkit-scrollbar-track { background: #080808; }
 ::-webkit-scrollbar-thumb { background: #1a5cff; border-radius: 2px; }
 
+/* Scroll Progress Bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #1a5cff, #ff2a9d);
+  z-index: 10000;
+  pointer-events: none;
+  transition: width 0.08s ease-out;
+  box-shadow: 0 0 8px rgba(26,92,255,0.4);
+}
+
 /* ─── PARTICLES ─────────────────────────────────────────────────────────── */
 #particle-container {
   position: fixed;
@@ -260,14 +274,17 @@ body::before {
   padding: 1.5rem 0;
   border-bottom: 1px solid rgba(255,255,255,0.06);
   cursor: pointer;
-  transition: background 0.2s;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, background 0.3s, box-shadow 0.3s;
   margin: 0 -0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
-.project-row:hover { background: rgba(255,255,255,0.03); }
+.project-row:hover { 
+  background: rgba(255,255,255,0.03); 
+}
 .project-row:hover .project-title { color: #1a5cff; }
-.project-row:hover .project-arrow { color: #1a5cff; transform: translate(2px, -2px); }
+.project-row:hover .project-arrow { color: #1a5cff; transform: translate3d(4px, -4px, 10px); }
 
 .project-year  { font-family: 'Space Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.2); width: 2.5rem; flex-shrink: 0; }
 .project-index { font-family: 'Space Mono', monospace; font-size: 11px; color: #1a5cff; flex-shrink: 0; }
