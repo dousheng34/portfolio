@@ -551,11 +551,7 @@ body::before {
 }
 #back-to-top:hover { transform: translateY(-3px); }
 
-/* ─── CUSTOM CURSOR ─────────────────────────────────────────────────────── */
-@media (hover: hover) {
-  body, a, button { cursor: none; }
-  input, textarea  { cursor: text; }
-}
+
 
 /* ─── ANIMATED COUNTER ──────────────────────────────────────────────────── */
 .counter-value {
