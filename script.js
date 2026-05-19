@@ -97,8 +97,6 @@ lucide.createIcons();
     </button>
     <a href="#work"         onclick="closeMobileMenu()">WORK</a>
     <a href="#about"        onclick="closeMobileMenu()">ABOUT</a>
-    <a href="#capabilities" onclick="closeMobileMenu()">CAPABILITIES</a>
-    <a href="#process"      onclick="closeMobileMenu()">PROCESS</a>
     <a href="#contact"      onclick="closeMobileMenu()">CONTACT</a>
   `;
   document.body.appendChild(menu);
@@ -409,7 +407,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
 // ─── Active nav link on scroll ────────────
 (function initActiveNav() {
-  const sections = ['work', 'about', 'capabilities', 'process', 'contact'];
+  const sections = ['work', 'about', 'contact'];
   const navLinks = document.querySelectorAll('.nav-links a');
 
   const setActive = (id) => {
@@ -498,97 +496,49 @@ const translations = {
   ru: {
     nav_work: 'WORK',
     nav_about: 'ABOUT',
-    nav_cap: 'CAPABILITIES',
-    nav_process: 'PROCESS',
     nav_contact: 'CONTACT',
     hero_title_1: 'ПРЕВРАЩАЮ',
     hero_title_2: 'ШУМ В',
     hero_title_3: 'СМЫСЛ',
     hero_desc: 'AI-креатор с 3-летним опытом. Экспертиза на стыке кода и визуального искусства. Создаю реальность, в которой ошибки ИИ становятся артефактами стиля.',
     hero_btn: 'СМОТРЕТЬ РАБОТЫ',
-    seq_text_1: 'ИССЛЕДУЙ',
-    seq_text_2: 'ПОГРУЖАЙСЯ',
-    seq_text_3: 'ТВОРИ',
     filter_all: 'ВСЕ',
     filter_ai: 'AI GENERATIVE',
     filter_3d: 'WEBGL / 3D',
     filter_design: 'UI/UX DESIGN',
     filter_audio: 'AUDIO AI',
-    creator_title: 'КОНСОЛЬ СОЗДАТЕЛЯ',
-    creator_subtitle: 'ЗАГРУЗИТЬ НОВУЮ РАБОТУ',
-    creator_name: 'НАЗВАНИЕ ПРОЕКТА',
-    creator_year: 'ГОД',
-    creator_category: 'КАТЕГОРИЯ',
-    creator_accent: 'АКЦЕНТНЫЙ ЦВЕТ (HEX)',
-    creator_tags: 'ТЕГИ (ЧЕРЕЗ ЗАПЯТУЮ)',
-    creator_desc: 'ОПИСАНИЕ ПРОЕКТА',
-    creator_btn_add: 'ДОБАВИТЬ В ПОРТФОЛИО',
-    creator_btn_export: 'ЭКСПОРТИРОВАТЬ JSON',
-    creator_export_desc: 'СКОПИРУЙТЕ ЭТОТ КОД И ВСТАВЬТЕ В SCRIPT.JS ДЛЯ СОХРАНЕНИЯ НА GITHUB:',
     terminal_welcome: 'ВВЕДИТЕ <span class="text-blue-accent">help</span> ДЛЯ СПИСКА КОМАНД.'
   },
   en: {
     nav_work: 'WORK',
     nav_about: 'ABOUT',
-    nav_cap: 'CAPABILITIES',
-    nav_process: 'PROCESS',
     nav_contact: 'CONTACT',
     hero_title_1: 'TURNING',
     hero_title_2: 'NOISE INTO',
     hero_title_3: 'MEANING',
     hero_desc: 'AI creator with 3 years of experience. Expertise at the intersection of code and visual art. I create reality where AI errors become style artifacts.',
     hero_btn: 'VIEW WORK',
-    seq_text_1: 'EXPLORE',
-    seq_text_2: 'IMMERSE',
-    seq_text_3: 'CREATE',
     filter_all: 'ALL',
     filter_ai: 'AI GENERATIVE',
     filter_3d: 'WEBGL / 3D',
     filter_design: 'UI/UX DESIGN',
     filter_audio: 'AUDIO AI',
-    creator_title: 'CREATOR CONSOLE',
-    creator_subtitle: 'UPLOAD NEW WORK',
-    creator_name: 'PROJECT TITLE',
-    creator_year: 'YEAR',
-    creator_category: 'CATEGORY',
-    creator_accent: 'ACCENT COLOR (HEX)',
-    creator_tags: 'TAGS (COMMA SEPARATED)',
-    creator_desc: 'PROJECT DESCRIPTION',
-    creator_btn_add: 'ADD TO PORTFOLIO',
-    creator_btn_export: 'EXPORT TO JSON',
-    creator_export_desc: 'COPY THIS CODE AND PASTE IT INTO SCRIPT.JS TO SAVE PERMANENTLY TO GITHUB:',
     terminal_welcome: 'ENTER <span class="text-blue-accent">help</span> FOR THE LIST OF COMMANDS.'
   },
   kk: {
     nav_work: 'ЖҰМЫС',
     nav_about: 'ТУРАЛЫ',
-    nav_cap: 'МҮМКІНДІКТЕР',
-    nav_process: 'ПРОЦЕСС',
     nav_contact: 'БАЙЛАНЫС',
     hero_title_1: 'ШУДЫ',
     hero_title_2: 'МАҒЫНАҒА',
     hero_title_3: 'АЙНАЛДЫРАМЫН',
     hero_desc: '3 жылдық тәжірибесі бар AI креаторы. Код пен визуалды өнер тоғысындағы сараптама. ЖИ қателері стиль артефактілеріне айналатын шындықты жасаймын.',
     hero_btn: 'ЖҰМЫСТАРДЫ КӨРУ',
-    seq_text_1: 'ЗЕРТТЕ',
-    seq_text_2: 'БАТ',
-    seq_text_3: 'ЖАСА',
     filter_all: 'БАРЛЫҒЫ',
     filter_ai: 'AI GENERATIVE',
     filter_3d: 'WEBGL / 3D',
     filter_design: 'UI/UX DESIGN',
     filter_audio: 'AUDIO AI',
-    creator_title: 'ЖАСАУШЫ ПАНЕЛІ',
-    creator_subtitle: 'ЖАҢА ЖҰМЫСТЫ ЖҮКТЕУ',
-    creator_name: 'ЖОБА АТАУЫ',
-    creator_year: 'ЖЫЛ',
-    creator_category: 'САНАТ',
-    creator_accent: 'АКЦЕНТТІК ТҮС (HEX)',
-    creator_tags: 'ТЕГТЕР (ҮТІР АРҚЫЛЫ)',
-    creator_desc: 'ЖОБА СИПАТТАМАСЫ',
-    creator_btn_add: 'ПОРТФОЛИОҒА ҚОСУ',
-    creator_btn_export: 'JSON ЭКСПОРТТАУ',
-    creator_export_desc: 'БҰЛ КОДТЫ КӨШІРІП, GITHUB-ҚА ТҰРАҚТЫ САҚТАУ ҮШІН SCRIPT.JS-КЕ ҚОЙЫҢЫЗ:',
     terminal_welcome: 'КОМАНДАЛАР ТІЗІМІ ҮШІН <span class="text-blue-accent">help</span> ЕНГІЗІҢІЗ.'
   }
 };
@@ -654,146 +604,6 @@ if (themeToggle) {
     applyTheme(currentTheme);
   });
 }
-
-// Video Sequence Scroll Logic
-const seqSection = document.getElementById('video-sequence');
-if (seqSection) {
-  const medias = seqSection.querySelectorAll('.seq-media');
-  const seqText = seqSection.querySelector('.seq-text');
-  
-  window.addEventListener('scroll', () => {
-     const rect = seqSection.getBoundingClientRect();
-     const scrollProg = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)));
-     
-     const total = medias.length;
-     const index = Math.min(total - 1, Math.floor(scrollProg * total));
-     
-     medias.forEach((m, i) => {
-         if (i === index) {
-             m.style.opacity = 1;
-         } else {
-             m.style.opacity = 0;
-         }
-     });
-     
-     const textKey = 'seq_text_' + (index + 1);
-     seqText.setAttribute('data-i18n', textKey);
-     seqText.textContent = translations[currentLang][textKey];
-     
-     // Subtle scale effect
-     const sectionProgress = (scrollProg * total) % 1;
-     seqText.style.transform = `scale(${1 + sectionProgress * 0.2})`;
-     seqText.style.opacity = 1 - Math.pow(sectionProgress * 2 - 1, 4); // Fade out at edges
-  }, { passive: true });
-}
-
-// ─── Creator Console Logic ─────────────────
-(function initCreatorConsole() {
-  const modal = document.getElementById('creator-modal');
-  const openBtns = [
-    document.getElementById('creator-console-trigger')
-  ];
-  const closeBtn = document.getElementById('creator-close');
-  const form = document.getElementById('creator-form');
-  const exportBtn = document.getElementById('creator-export');
-  const exportContainer = document.getElementById('export-container');
-  const exportJson = document.getElementById('export-json');
-
-  function openCreator() {
-    if (!modal) return;
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    exportContainer.classList.add('hidden');
-  }
-
-  function closeCreator() {
-    if (!modal) return;
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // Key combination Ctrl+Shift+C
-  document.addEventListener('keydown', e => {
-    if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'C') {
-      e.preventDefault();
-      openCreator();
-    }
-    if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
-      closeCreator();
-    }
-  });
-
-  if (openBtns[0]) openBtns[0].addEventListener('click', openCreator);
-  if (closeBtn) closeBtn.addEventListener('click', closeCreator);
-  if (modal) {
-    modal.querySelector('.modal-backdrop').addEventListener('click', closeCreator);
-  }
-
-  // Handle Form Submit
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      
-      const title = document.getElementById('proj-title').value.trim();
-      const year = document.getElementById('proj-year').value.trim();
-      const category = document.getElementById('proj-category').value;
-      const accent = document.getElementById('proj-accent').value.trim();
-      const tagsString = document.getElementById('proj-tags').value.trim();
-      const desc = document.getElementById('proj-desc').value.trim();
-
-      const tags = tagsString.split(',').map(t => t.trim().toUpperCase()).filter(Boolean);
-
-      const newProject = {
-        id: Date.now(),
-        year,
-        title: title.toUpperCase(),
-        category,
-        description: desc,
-        tags,
-        accent
-      };
-
-      const localData = localStorage.getItem('aether_projects');
-      let currentLocal = [];
-      if (localData) {
-        try {
-          currentLocal = JSON.parse(localData);
-          if (!Array.isArray(currentLocal)) currentLocal = [];
-        } catch(err) {
-          currentLocal = [];
-        }
-      }
-      currentLocal.push(newProject);
-      localStorage.setItem('aether_projects', JSON.stringify(currentLocal));
-
-      renderProjects();
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = currentLang === 'ru' ? '✓ УСПЕШНО ДОБАВЛЕНО' : (currentLang === 'kk' ? '✓ СӘТТІ ҚОСЫЛДЫ' : '✓ SUCCESSFULLY ADDED');
-      submitBtn.style.background = 'rgba(34,197,94,0.15)';
-      submitBtn.style.color = '#22c55e';
-
-      setTimeout(() => {
-        submitBtn.textContent = originalText;
-        submitBtn.style.background = '';
-        submitBtn.style.color = '';
-        form.reset();
-        closeCreator();
-      }, 1500);
-    });
-  }
-
-  // Handle Export
-  if (exportBtn && exportJson && exportContainer) {
-    exportBtn.addEventListener('click', () => {
-      const activeProjects = getCombinedProjects();
-      exportJson.value = "const projects = " + JSON.stringify(activeProjects, null, 2) + ";";
-      exportContainer.classList.remove('hidden');
-      exportJson.select();
-    });
-  }
-})();
 
 // ─── Interactive Terminal Logic ───────────
 (function initInteractiveTerminal() {
