@@ -179,24 +179,28 @@ const projects = [
     description: 'Серия генеративных работ, созданных на стыке кода и случайности. Stable Diffusion + кастомные GLSL-шейдеры формируют уникальные визуальные миры, где каждый артефакт ИИ становится частью нарратива.',
     tags: ['STABLE DIFFUSION', 'GLSL', 'PYTHON', 'COMFYUI'],
     accent: '#1a5cff',
+    image: 'neural_dreams.png'
   },
   {
     id: 2, year: '2024', title: 'QUANTUM UI', category: 'INTERFACE DESIGN',
     description: 'Дизайн-система для B2B SaaS-платформы с фокусом на dense information architecture. Тёмная тема, кастомные charts, микроанимации.',
     tags: ['FIGMA', 'REACT', 'FRAMER MOTION', 'DESIGN SYSTEM'],
     accent: '#ff2a9d',
+    image: 'quantum_ui.png'
   },
   {
     id: 3, year: '2024', title: 'SYNTHETIC VOICES', category: 'AUDIO AI',
     description: 'Эксперименты с генерацией аудио через ИИ — музыкальные текстуры, voice cloning, синтез ambient-пространств. Визуализация звука в реальном времени на WebGL.',
     tags: ['ELEVEN LABS', 'WEBGL', 'AUDIO API', 'PYTHON'],
     accent: '#b224ef',
+    image: 'synthetic_voices.png'
   },
   {
     id: 4, year: '2023', title: 'AETHER CORE', category: 'WEBGL / 3D',
     description: 'Интерактивный 3D-опыт, построенный на Three.js и GLSL. Процедурные геометрии реагируют на звук и движение мыши. Полностью в браузере, без плагинов.',
     tags: ['THREE.JS', 'GLSL', 'WEBGL', 'GSAP'],
     accent: '#00c4ff',
+    image: 'aether_core.png'
   },
 ];
 
@@ -313,7 +317,7 @@ function openModal(project) {
             </button>
           </div>
           <div class="modal-preview" id="modal-preview">
-            <span class="modal-preview-letter" id="modal-letter"></span>
+            <img id="modal-image" src="" alt="Project Preview">
           </div>
           <p id="modal-desc" style="color:rgba(255,255,255,0.6);font-size:0.95rem;line-height:1.7;margin-bottom:1.5rem"></p>
           <div id="modal-tags" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem"></div>
@@ -333,10 +337,16 @@ function openModal(project) {
   modalEl.querySelector('#modal-accent').style.background = project.accent;
   modalEl.querySelector('#modal-category').textContent = `${project.category} — ${project.year}`;
   modalEl.querySelector('#modal-title').textContent = project.title;
-  modalEl.querySelector('#modal-letter').textContent = project.title.charAt(0);
-  modalEl.querySelector('#modal-letter').style.color = project.accent;
   modalEl.querySelector('#modal-preview').style.background = project.accent + '15';
   modalEl.querySelector('#modal-desc').textContent = project.description;
+
+  const imgEl = modalEl.querySelector('#modal-image');
+  if (project.image) {
+    imgEl.src = project.image;
+    imgEl.style.display = 'block';
+  } else {
+    imgEl.style.display = 'none';
+  }
 
   const tagsEl = modalEl.querySelector('#modal-tags');
   tagsEl.innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
@@ -438,49 +448,67 @@ const translations = {
     nav_work: 'WORK',
     nav_about: 'ABOUT',
     nav_contact: 'CONTACT',
+    nav_cv: 'РЕЗЮМЕ',
+    hero_role: 'CREATIVE DEVELOPER & WEBGL ENGINEER',
     hero_title_1: 'ПРЕВРАЩАЮ',
     hero_title_2: 'ШУМ В',
     hero_title_3: 'СМЫСЛ',
-    hero_desc: 'AI-креатор с 3-летним опытом. Экспертиза на стыке кода и визуального искусства. Создаю реальность, в которой ошибки ИИ становятся артефактами стиля.',
+    hero_desc: 'Креативный фронтенд-разработчик и 3D WebGL инженер с 3-летним коммерческим опытом. Создаю высокопроизводительные интерактивные интерфейсы и генеративное искусство.',
     hero_btn: 'СМОТРЕТЬ РАБОТЫ',
+    hero_cv: 'СКАЧАТЬ CV',
+    metric_exp: 'ЛЕТ КОММЕРЧ. ОПЫТА',
+    metric_projects: 'ПРОЕКТОВ ЗАПУЩЕНО',
+    metric_awards: 'ДИЗАЙН-НАГРАДЫ',
+    tech_stack_title: 'КОММЕРЧЕСКИЙ СТЕК',
     filter_all: 'ВСЕ',
     filter_ai: 'AI GENERATIVE',
     filter_3d: 'WEBGL / 3D',
     filter_design: 'UI/UX DESIGN',
-    filter_audio: 'AUDIO AI',
-    terminal_welcome: 'ВВЕДИТЕ <span class="text-blue-accent">help</span> ДЛЯ СПИСКА КОМАНД.'
+    filter_audio: 'AUDIO AI'
   },
   en: {
     nav_work: 'WORK',
     nav_about: 'ABOUT',
     nav_contact: 'CONTACT',
+    nav_cv: 'RESUME',
+    hero_role: 'CREATIVE DEVELOPER & WEBGL ENGINEER',
     hero_title_1: 'TURNING',
     hero_title_2: 'NOISE INTO',
     hero_title_3: 'MEANING',
-    hero_desc: 'AI creator with 3 years of experience. Expertise at the intersection of code and visual art. I create reality where AI errors become style artifacts.',
+    hero_desc: 'Creative Frontend Developer & 3D WebGL Engineer with 3+ years of commercial experience. Crafting high-performance interactive interfaces, custom shaders, and generative layouts.',
     hero_btn: 'VIEW WORK',
+    hero_cv: 'DOWNLOAD CV',
+    metric_exp: 'YEARS COMMERCIAL EXP',
+    metric_projects: 'PROJECTS SHIPPED',
+    metric_awards: 'DESIGN AWARDS',
+    tech_stack_title: 'COMMERCIAL TECH STACK',
     filter_all: 'ALL',
     filter_ai: 'AI GENERATIVE',
     filter_3d: 'WEBGL / 3D',
     filter_design: 'UI/UX DESIGN',
-    filter_audio: 'AUDIO AI',
-    terminal_welcome: 'ENTER <span class="text-blue-accent">help</span> FOR THE LIST OF COMMANDS.'
+    filter_audio: 'AUDIO AI'
   },
   kk: {
     nav_work: 'ЖҰМЫС',
     nav_about: 'ТУРАЛЫ',
     nav_contact: 'БАЙЛАНЫС',
+    nav_cv: 'ТҮЙІНДЕМЕ',
+    hero_role: 'CREATIVE DEVELOPER & WEBGL ENGINEER',
     hero_title_1: 'ШУДЫ',
-    hero_title_2: 'МАҒЫНАҒА',
+    hero_title_2: 'MAҒЫНАҒА',
     hero_title_3: 'АЙНАЛДЫРАМЫН',
-    hero_desc: '3 жылдық тәжірибесі бар AI креаторы. Код пен визуалды өнер тоғысындағы сараптама. ЖИ қателері стиль артефактілеріне айналатын шындықты жасаймын.',
+    hero_desc: '3 жылдық коммерциялық тәжірибесі бар креативті фронтенд-әзірлеуші және 3D WebGL инженері. Жоғары өнімді интерактивті интерфейстер мен генеративті өнерді жасаймын.',
     hero_btn: 'ЖҰМЫСТАРДЫ КӨРУ',
+    hero_cv: 'CV ЖҮКТЕУ',
+    metric_exp: 'КОММЕРЦ. ТӘЖІРИБЕ ЖЫЛЫ',
+    metric_projects: 'ЖОБАЛАР ІСКЕ ҚОСЫЛДЫ',
+    metric_awards: 'ДИЗАЙН ЖҮЛДЕЛЕРІ',
+    tech_stack_title: 'КОММЕРЦИЯЛЫҚ СТЕК',
     filter_all: 'БАРЛЫҒЫ',
     filter_ai: 'AI GENERATIVE',
     filter_3d: 'WEBGL / 3D',
     filter_design: 'UI/UX DESIGN',
-    filter_audio: 'AUDIO AI',
-    terminal_welcome: 'КОМАНДАЛАР ТІЗІМІ ҮШІН <span class="text-blue-accent">help</span> ЕНГІЗІҢІЗ.'
+    filter_audio: 'AUDIO AI'
   }
 };
 
@@ -546,81 +574,7 @@ if (themeToggle) {
   });
 }
 
-// ─── Interactive Terminal Logic ───────────
-(function initInteractiveTerminal() {
-  const input = document.getElementById('terminal-input');
-  const history = document.getElementById('terminal-history');
-  if (!input || !history) return;
 
-  function printLine(text, className = '') {
-    const p = document.createElement('p');
-    if (className) p.className = className;
-    p.innerHTML = text;
-    history.appendChild(p);
-    history.scrollTop = history.scrollHeight;
-  }
-
-  input.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      const cmd = input.value.trim();
-      input.value = '';
-      if (!cmd) return;
-
-      printLine(`<span class="text-blue-accent">$</span> ${cmd}`);
-
-      const parts = cmd.toLowerCase().split(' ');
-      const action = parts[0];
-
-      switch(action) {
-        case 'help':
-          printLine('Доступные команды / Available commands:', 'text-white/50');
-          printLine('  <span class="text-blue-accent">help</span>     - Показать этот список / Show this list');
-          printLine('  <span class="text-blue-accent">skills</span>   - Список технологий / Display skills & stack');
-          printLine('  <span class="text-blue-accent">projects</span> - Мои проекты / List current projects');
-          printLine('  <span class="text-blue-accent">contact</span>  - Контактные данные / Display contact info');
-          printLine('  <span class="text-blue-accent">theme</span>    - Переключить тему / Toggle color theme');
-          printLine('  <span class="text-blue-accent">clear</span>    - Очистить терминал / Clear history');
-          break;
-        case 'clear':
-          history.innerHTML = '';
-          break;
-        case 'skills':
-        case 'stack':
-          printLine('Используемый стек / Tech Stack:', 'text-white/50');
-          printLine('  ● COMFYUI / STABLE DIFFUSION');
-          printLine('  ● MIDJOURNEY / RUNWAY GEN-3');
-          printLine('  ● THREE.JS / WEBGL / GLSL');
-          printLine('  ● PYTHON / AUTOMATION');
-          break;
-        case 'projects':
-        case 'work':
-          const projs = getCombinedProjects();
-          printLine('Список проектов / Projects List:', 'text-white/50');
-          projs.forEach((p, idx) => {
-            printLine(`  [${idx+1}] <span style="color:${p.accent || '#1a5cff'}">${p.title}</span> — ${p.category} (${p.year})`);
-          });
-          break;
-        case 'contact':
-        case 'mail':
-          printLine('Контакты / Contact details:', 'text-white/50');
-          printLine('  Email: <a href="mailto:hello@aether.ai" class="text-blue-accent hover:underline">hello@aether.ai</a>');
-          printLine('  Location: DIGITAL DIMENSION');
-          break;
-        case 'theme':
-          const toggleBtn = document.getElementById('theme-toggle');
-          if (toggleBtn) {
-            toggleBtn.click();
-            printLine('Тема успешно переключена / Theme toggled.', 'text-green-400');
-          } else {
-            printLine('Ошибка переключения темы / Theme toggle element not found.', 'text-red-400');
-          }
-          break;
-        default:
-          printLine(`Команда не найдена / Command not found: ${action}. Введите <span class="text-blue-accent">help</span>.`, 'text-red-400/80');
-      }
-    }
-  });
-})();
 
 // ─── 3D Tilt Effect on Project Rows ───────
 (function initTiltEffect() {
